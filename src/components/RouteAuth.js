@@ -13,6 +13,7 @@ const RouteAuth = () => {
         fontWeight: 'bold',
         fontSize: '20px',
         lineHeight: '20px',
+        color:'#E8F0F2'
     }
     const titleContainer = {
         marginTop: '20px',
@@ -24,19 +25,11 @@ const RouteAuth = () => {
     const containerSidebar = {
         paddingLeft:'50px'
     }
-    const titleSubMenu = {
-        color: '#828282',
-        fontSize: '16px',
-        fontWeight:'bold'
-    }
     return(  
         <div className="ui grid" style={{ minHeight: '100vh' }}>
-            <div className="ui three wide column" style={{ backgroundColor: '#E5E5E5', ...containerSidebar}}>
+            <div className="ui three wide column" style={{ backgroundColor: '#053742', ...containerSidebar}}>
                 <div className="ui column" style={titleContainer}>
                     <span style={titleSidebar}>Absensi</span>
-                </div>
-                <div className="ui column">
-                    <span style={titleSubMenu}>Menu</span>
                 </div>
                 <div className="ui column" style={containerMenu}>
                     <MenuSideBar/>  

@@ -7,11 +7,11 @@ const MenuSideBar = () => {
         fontStyle: 'normal',
         fontSize: '12px',
         lineHeight: '17px',
-        color: '#828282'
+        color: '#E8F0F2'
     }
 
     const iconSidebar = {
-        color: '#BDBDBD'
+        color: '#E8F0F2'
     }
     const containerContent = {
         marginTop:'10px',
