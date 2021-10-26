@@ -4,6 +4,7 @@ import MenuSideBar from "./MenuSideBar"
 import Home from './page/Home'
 import User from './page/User'
 import Absensi from './page/Absensi'
+import UserForm from './page/UserForm'
 
 const RouteAuth = () => {
     
@@ -26,18 +27,25 @@ const RouteAuth = () => {
         paddingLeft:'50px'
     }
     return(  
-        <div className="ui grid" style={{ minHeight: '100vh' }}>
-            <div className="ui three wide column" style={{ backgroundColor: '#053742', ...containerSidebar}}>
-                <div className="ui column" style={titleContainer}>
-                    <span style={titleSidebar}>Absensi</span>
+        <div className="ui container fluid">
+            <div className="ui grid" style={{ minHeight: '100vh', marginBottom:'0px', marginTop:'0px' }}>
+                <div className="ui three wide column" style={{ backgroundColor: '#053742', ...containerSidebar}}>
+                    <div className="ui column" style={titleContainer}>
+                        <span style={titleSidebar}>Absensi</span>
+                    </div>
+                    <div className="ui column" style={containerMenu}>
+                        <MenuSideBar/>  
+                    </div>
                 </div>
-                <div className="ui column" style={containerMenu}>
-                    <MenuSideBar/>  
+                <div className="ui thirteen wide column">
+                    <div className="ui container" style={{backgroundColor:'#fff', marginTop:'5em', padding:'5em', borderRadius:'1em'}}>
+                        <Route path="/" exact component={Home} />
+                        <Route path="/user" exact component={User} />
+                        <Route path="/user/add" exact component={UserForm}/>
+                        <Route path="/absensi" exact component={Absensi} />
+                    </div>
                 </div>
             </div>
-                <Route path="/" exact component={Home} />
-                <Route path="/user" exact component={User} />
-                <Route path="/absensi" exact component={Absensi} />
         </div>
     )
 }

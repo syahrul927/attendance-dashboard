@@ -9,7 +9,7 @@ class App extends Component {
     render() {
         return (
             <Router history={history}>
-                <div className="ui container-fluid" style={{ height: '100%' }}>
+                <div className="ui container fluid" >
                     <Switch>
                         <Route path="/login" component={Login}/>
                         <RouteAuth />
