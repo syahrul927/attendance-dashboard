@@ -1,38 +1,66 @@
-import React, {useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from '../../api'
+import history from '../history'
+import ModalAuth from './ModalAuth'
 
 const Login = () => {
 
-    const [form, setForm] = useState({username:'', password:''})
+    const [form, setForm] = useState({ username: '', password: '' })
+    const [modal, setModal] = useState(false)
+    const [statusAuth, setStatusAuth] = useState(false)
+    const [loginLoading, setLoginLoading] = useState(false)
     const onChange = e => {
-        setForm({...form, [e.target.name]:e.target.value})
+        setForm({ ...form, [e.target.name]: e.target.value })
     }
     const onSubmit = async () => {
-        await axios.post('/login', form).then(res => {
-            if(200!==res.status){
-                alert('user atau password salah')
-            }
-        })
+        if (form.username && form.password) {
+
+            setLoginLoading(true)
+            console.log('on Submit Euy')
+            await axios.post('/login', form).then(res => {
+                if (200 !== res.status) {
+                    setStatusAuth(false)
+                }
+                if (res.data.accessToken) {
+                    setStatusAuth(true)
+                    successLogin(res.data.accessToken)
+                }
+            }).catch(err => {
+                setStatusAuth(false)
+            }).finally(() => {
+                setModal(true)
+                setLoginLoading(false)
+            })
+        }
     }
-    return(
+    const successLogin = async token => {
+        await localStorage.setItem('token', token)
+    }
+    // const checkLocalStorage = () => {
+    //     console.log(`token : ${localStorage.getItem('token')}`)
+    // }
+    // useEffect(() => {
+    //     checkLocalStorage()
+    // })
+    return (
         <div className="ui container">
-            <div className="ui raised  very padded text container segment" style={{marginTop:'100px'}}>
+            <div className="ui raised very padded text container segment" style={{ marginTop: '100px' }}>
                 <h2 className="ui header">Login </h2>
                 <div className="ui form">
                     <div className="field">
                         <label>Username</label>
-                        <input placeholder="Username" type="text" name="username" value={form.username} id="username" onChange = {onChange}/>
+                        <input placeholder="Username" type="text" name="username" value={form.username} id="username" onChange={onChange} />
                     </div>
                     <div className="field">
                         <label>Password</label>
-                        <input placeholder="Password" type="password" name="password" value={form.password} id="password" onChange = {onChange}/>
+                        <input placeholder="Password" type="password" name="password" value={form.password} id="password" onChange={onChange} />
                     </div>
                     <div className="field">
-                        <button className="ui primary button" onClick={onSubmit}>Login</button>
+                        <button className={`ui primary button ${loginLoading && 'disabled'} `} onClick={onSubmit}>Login</button>
                     </div>
                 </div>
             </div>
-            
+            {modal && <ModalAuth setModal={setModal} statusAuth={statusAuth} />}
         </div>
     )
 }

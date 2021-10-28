@@ -1,23 +1,28 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { Route, Router, Switch } from "react-router-dom"
 import history from "./history"
 import Login from './page/Login'
 import RouteAuth from './RouteAuth'
 
-class App extends Component {
-
-    render() {
-        return (
-            <Router history={history}>
-                <div className="ui container fluid" >
-                    <Switch>
-                        <Route path="/login" component={Login}/>
-                        <RouteAuth />
-                    </Switch>
-                </div>
-            </Router>
-        )
-    }
+const App = () => {
+    useEffect(async () => {
+        const token = await localStorage.getItem('token')
+        if(!token){
+            history.push('/login')
+        } else{
+            history.push('/')
+        }
+    })
+    return (
+        <Router history={history}>
+            <div className="ui container fluid" >
+                <Switch>
+                    <Route path="/login" component={Login}/>
+                    <RouteAuth />
+                </Switch>
+            </div>
+        </Router>
+    )
 }
 
 export default App

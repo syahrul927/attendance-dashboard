@@ -12,11 +12,11 @@ const UserForm = () => {
     }
 
     const onSubmit = async () => {
-        // await axios.post('/user/add', form).then(res => {
-        //     if(200!==res.status){
-        //         alert('user atau password salah')
-        //     }
-        // })
+        await axios.post('/user/add', form).then(res => {
+            if(200!==res.status){
+                alert('user atau password salah')
+            }
+        })
         history.push('/user')
     }
     const takePhoto = async () => {
