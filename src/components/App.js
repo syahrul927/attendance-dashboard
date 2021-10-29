@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from 'react'
 import { Route, Router, Switch } from "react-router-dom"
 import history from "./history"
-import Login from './page/Login'
+import Login from './page/auth/Login'
 import RouteAuth from './RouteAuth'
 
 const App = () => {

@@ -1,27 +1,24 @@
 import React from 'react'
-import { Link } from "react-router-dom"
-import listUser from '../../api/user.json'
-const User = () => {
+import {Link} from 'react-router-dom'
+import listAbsen from '../../../api/absensi.json'
+const Absensi = () => {
     const renderRecord = (item) => {
         return (
             <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.nama}</td>
-                <td>{item.telp}</td>
+                <td>{item.dateTm}</td>
                 <td><Link to="/"><i className="edit icon"></i></Link> <Link to="/"><i className="trash icon"></i></Link></td>
             </tr>
         )
     }
     return (
         <div>
-            <h1 className="ui header">User</h1>
+            <h1 className="ui header">Absensi</h1>
             <div className="ui section divider"></div>
             <div className="ui grid">
                 <div className="six wide column">
-                    <h2>Daftar User</h2>
-                </div>
-                <div className="right floated three wide column">
-                    <Link to="/user/add" className="ui primary button right floated">Tambah Baru</Link>
+                    <h2>Daftar Absensi</h2>
                 </div>
             </div>
             <div className="ui grid">
@@ -42,7 +39,7 @@ const User = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {listUser.map(e => renderRecord(e))}
+                            {listAbsen.map(e => renderRecord(e))}
                         </tbody>
                     </table>
                 </div>
@@ -51,5 +48,4 @@ const User = () => {
         </div>
     )
 }
-
-export default User
+export default Absensi

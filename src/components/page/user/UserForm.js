@@ -1,20 +1,32 @@
-import React, { useState } from 'react'
-import axios from '../../api'
+import React, { useEffect, useState } from 'react'
+import httpHelper from '../../../api'
+import API from '../../../api/pathApi.json'
 import Modal from './Modal'
-import history from '../history'
-const UserForm = () => {
+import history from '../../history'
+import { UserContext } from '../context/userContext'
 
-    const [form, setForm] = useState({ nama: '', phone: '' })
+const UserForm = () => {
+    const [form, setForm] = useState({ nama: '', telp: '' })
     const [modal, setModal] = useState(false)
     const [photo, setPhoto] = useState(null)
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value })
     }
+    const {sync, listUser} = UserContext.Consumer 
+
+
 
     const onSubmit = async () => {
-        await axios.post('/user/add', form).then(res => {
-            if(200!==res.status){
-                alert('user atau password salah')
+        await httpHelper(API.userApi.addNew, form, true).then(res => {
+
+            if (200 === res.status && res.data.success) {
+                const obj = {
+                    id: res.data.id,
+                    nama: res.data.nama,
+                    telp: res.data.telp
+                }
+            } else {
+                console.log(`error ${res.data}`)
             }
         })
         history.push('/user')
@@ -24,12 +36,14 @@ const UserForm = () => {
     }
 
     const validationForm = () => {
-        if(!form.nama || !form.phone || !photo){
+        if (!form.nama || !form.telp || !photo) {
             return true
         }
         return false
     }
-
+    useEffect(() => {
+        
+    }, [])
     return (
         <div>
             <h1 className="ui header">User Form</h1>
@@ -42,7 +56,7 @@ const UserForm = () => {
                     </div>
                     <div className="field">
                         <label htmlFor="telp">Nomor Telp</label>
-                        <input type="number" value={form.phone} onChange={onChange} name="phone" placeholder="Nomor Telp" />
+                        <input type="number" value={form.telp} onChange={onChange} name="telp" placeholder="Nomor Telp" />
                     </div>
                     <div className="field">
                         <label htmlFor="">Upload Foto</label>
@@ -60,7 +74,8 @@ const UserForm = () => {
                     </div>
                 </div>
             </div>
-            {modal && <Modal setModal={setModal} setPhoto={setPhoto} />}
+
+            modal && <Modal listUser={listUser} sync={sync} setModal={setModal} setPhoto={setPhoto} />
         </div>
     )
 }

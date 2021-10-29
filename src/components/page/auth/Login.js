@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import axios from '../../api'
-import history from '../history'
+import httpHelper from '../../../api'
+import API from '../../../api/pathApi.json'
 import ModalAuth from './ModalAuth'
 
 const Login = () => {
@@ -17,7 +17,7 @@ const Login = () => {
 
             setLoginLoading(true)
             console.log('on Submit Euy')
-            await axios.post('/login', form).then(res => {
+            await httpHelper(API.authApi.login, form).then(res => {
                 if (200 !== res.status) {
                     setStatusAuth(false)
                 }
@@ -26,6 +26,7 @@ const Login = () => {
                     successLogin(res.data.accessToken)
                 }
             }).catch(err => {
+                console.log(err)
                 setStatusAuth(false)
             }).finally(() => {
                 setModal(true)
@@ -36,12 +37,6 @@ const Login = () => {
     const successLogin = async token => {
         await localStorage.setItem('token', token)
     }
-    // const checkLocalStorage = () => {
-    //     console.log(`token : ${localStorage.getItem('token')}`)
-    // }
-    // useEffect(() => {
-    //     checkLocalStorage()
-    // })
     return (
         <div className="ui container">
             <div className="ui raised very padded text container segment" style={{ marginTop: '100px' }}>
