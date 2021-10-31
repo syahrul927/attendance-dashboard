@@ -13,22 +13,22 @@
     },
     "userApi":{
         "addNew":{
-            "url":"/v1/user",
+            "url":"/user",
             "auth":true,
             "method":"POST"
         },
         "getData":{
-            "url":"/v1/user",
+            "url":"/user",
             "auth":true,
             "method":"GET"
         },
         "update":{
-            "url":"/v1/user",
+            "url":"/user",
             "auth":true,
             "method":"PUT"
         },
         "delete":{
-            "url":"/v1/user",
+            "url":"/user",
             "auth":true,
             "method":"DELETE"
         }

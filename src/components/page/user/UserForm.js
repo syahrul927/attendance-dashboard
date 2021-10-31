@@ -75,7 +75,7 @@ const UserForm = () => {
                 </div>
             </div>
 
-            modal && <Modal listUser={listUser} sync={sync} setModal={setModal} setPhoto={setPhoto} />
+            {modal && <Modal listUser={listUser} sync={sync} setModal={setModal} setPhoto={setPhoto} />}
         </div>
     )
 }

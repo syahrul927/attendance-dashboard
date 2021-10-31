@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = 'http://192.168.100.8:3000'
+const baseURL = 'https://attendance-serviceku.herokuapp.com'
 
 const token = localStorage.getItem('token')
 
