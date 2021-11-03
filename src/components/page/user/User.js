@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import httpHelper from '../../../api'
 import API from '../../../api/pathApi.json'
 import { Link } from "react-router-dom"
-import { UserContext } from '../context/userContext'
 const User = () => {
     const [listUser, setListUser] = useState([])
     const renderRecord = (item) => {

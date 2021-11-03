@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-const Modal = ({ setModal, setPhoto }) => {
+const Modal = ({ setModal, listPhoto, setPhoto }) => {
     const videoRef = useRef(null)
     const photoRef = useRef(null)
     const [tracks, setTracks] = useState(null)
@@ -43,7 +43,7 @@ const Modal = ({ setModal, setPhoto }) => {
     const dismissModal = async (save = false) => {
         if (save) {
             const imageData = photoRef.current.toDataURL('image/png')
-            setPhoto(imageData)
+            setPhoto([...listPhoto, imageData])
         }
         stopStream()
         setModal(false)

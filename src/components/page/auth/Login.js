@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import httpHelper from '../../../api'
 import API from '../../../api/pathApi.json'
 import ModalAuth from './ModalAuth'
