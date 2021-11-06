@@ -6,8 +6,9 @@ import history from '../../history'
 import { UserContext } from '../context/userContext'
 
 const UserForm = () => {
-    const [form, setForm] = useState({ nama: '', telp: '' })
+    const [form, setForm] = useState({ nama: '', telp: ''})
     const [modal, setModal] = useState(false)
+    //list base64 image
     const [photo, setPhoto] = useState([])
     const onChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -15,14 +16,42 @@ const UserForm = () => {
     const { sync, listUser } = UserContext.Consumer
 
 
-
+    const base64ToImageFile = (dataurl, filename) => {
+        const arr = dataurl.split(',')
+        const mime = arr[0].match(/:(.*?);/)[1]
+        const bstr = atob(arr[1])
+        let n = bstr.length
+        const u8arr = new Uint8Array(n)
+            
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n)
+        }
+        return new File([u8arr], filename, {type:mime});
+    }
     const onSubmit = async () => {
-        await httpHelper(API.userApi.addNew, form, true).then(res => {
+        const listPhoto = []
+        for (let index = 0; index < photo.length; index++) {
+
+            const image = await base64ToImageFile(photo[index], `${index+1}.png`)
+            listPhoto.push(image)
+            
+        }
+        let formData = new FormData()
+        for (const key in form) {
+            if (Object.hasOwnProperty.call(form, key)) {
+                const element = form[key];
+                formData.append(key, element)
+            }
+        }
+        listPhoto.forEach(item => {
+            formData.append('images', item)
+        })
+        await httpHelper(API.userApi.addNew, formData).then(res => {
 
             if (200 === res.status && res.data.success) {
                 history.push('/user')
             } else {
-                console.log(`error ${res.data}`)
+                console.log(`error ${JSON.stringify(res.data)}`)
             }
         })
     }
