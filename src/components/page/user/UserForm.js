@@ -4,10 +4,12 @@ import API from '../../../api/pathApi.json'
 import Modal from './Modal'
 import history from '../../history'
 import { UserContext } from '../context/userContext'
+import Loading from '../part/loading'
 
 const UserForm = () => {
-    const [form, setForm] = useState({ nama: '', telp: ''})
+    const [form, setForm] = useState({ nama: '', telp: '' })
     const [modal, setModal] = useState(false)
+    const [loadingScreen, setLoadingScreen] = useState(false)
     //list base64 image
     const [photo, setPhoto] = useState([])
     const onChange = e => {
@@ -22,19 +24,19 @@ const UserForm = () => {
         const bstr = atob(arr[1])
         let n = bstr.length
         const u8arr = new Uint8Array(n)
-            
-        while(n--){
+
+        while (n--) {
             u8arr[n] = bstr.charCodeAt(n)
         }
-        return new File([u8arr], filename, {type:mime});
+        return new File([u8arr], filename, { type: mime });
     }
     const onSubmit = async () => {
         const listPhoto = []
         for (let index = 0; index < photo.length; index++) {
 
-            const image = await base64ToImageFile(photo[index], `${index+1}.png`)
+            const image = await base64ToImageFile(photo[index], `${index + 1}.png`)
             listPhoto.push(image)
-            
+
         }
         let formData = new FormData()
         for (const key in form) {
@@ -46,8 +48,9 @@ const UserForm = () => {
         listPhoto.forEach(item => {
             formData.append('images', item)
         })
+        setLoadingScreen(true)
         await httpHelper(API.userApi.addNew, formData).then(res => {
-
+            setLoadingScreen(false)
             if (200 === res.status && res.data.success) {
                 history.push('/user')
             } else {
@@ -66,7 +69,7 @@ const UserForm = () => {
         return (
             <div className="column" key={img}>
                 <div className="column">
-                    <img src={img} id={id} alt=""/>
+                    <img src={img} id={id} alt="" />
                 </div>
                 <div className="column">
                     <button onClick={() => removePhoto(id)} className="ui red button">Hapus</button>
@@ -76,17 +79,19 @@ const UserForm = () => {
     }
 
     const validationForm = () => {
-        if (!form.nama || !form.telp || photo.length<2) {
+        if (!form.nama || !form.telp || photo.length < 2) {
             return true
         }
         return false
     }
     return (
         <div>
+            {loadingScreen && <Loading />}
             <h1 className="ui header">User Form</h1>
             <div className="ui section divider"></div>
             <div className="ui grid">
                 <div className="ui form column">
+
                     <div className="field">
                         <label htmlFor="Nama">Nama</label>
                         <input type="text" name="nama" value={form.nama} onChange={onChange} placeholder="Nama Lengkap" />
