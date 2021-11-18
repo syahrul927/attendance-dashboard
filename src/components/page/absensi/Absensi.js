@@ -6,7 +6,7 @@ import Loading from '../part/loading'
 import ModalImage from './ModalImage'
 const Absensi = () => {
     
-    const baseURL = '//159.223.56.146:3000'
+    const baseURL = 'http://attendance-serviceku/s3/image/'
     const [listAbsensi, setListAbsensi] = useState([])
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false)
@@ -25,7 +25,6 @@ const Absensi = () => {
     }
     const showModalImage = (url = '') => {
         setModal(true)
-        url = url.replace('images/', '/images/absensi/')
         setUrlImage(baseURL+url)
     }
     const fetchAbsensi = async () => {
