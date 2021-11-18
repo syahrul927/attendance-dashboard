@@ -5,10 +5,14 @@ import Modal from './Modal'
 import history from '../../history'
 import { UserContext } from '../context/userContext'
 import Loading from '../part/loading'
+import ModalFailed from './ModalFailed'
+import { base64ToImageFile } from './imageUtils'
 
 const UserForm = () => {
     const [form, setForm] = useState({ nama: '', telp: '' })
     const [modal, setModal] = useState(false)
+    const [modalFailed, setModalFailed] = useState(false)
+    const [errMessage, setErrMessage] = useState("")
     const [loadingScreen, setLoadingScreen] = useState(false)
     //list base64 image
     const [photo, setPhoto] = useState([])
@@ -17,19 +21,6 @@ const UserForm = () => {
     }
     const { sync, listUser } = UserContext.Consumer
 
-
-    const base64ToImageFile = (dataurl, filename) => {
-        const arr = dataurl.split(',')
-        const mime = arr[0].match(/:(.*?);/)[1]
-        const bstr = atob(arr[1])
-        let n = bstr.length
-        const u8arr = new Uint8Array(n)
-
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n)
-        }
-        return new File([u8arr], filename, { type: mime });
-    }
     const onSubmit = async () => {
         const listPhoto = []
         for (let index = 0; index < photo.length; index++) {
@@ -54,6 +45,8 @@ const UserForm = () => {
             if (200 === res.status && res.data.success) {
                 history.push('/user')
             } else {
+                setErrMessage(res.data.errorMessage)
+                setModalFailed(true)
                 console.log(`error ${JSON.stringify(res.data)}`)
             }
         })
@@ -119,7 +112,7 @@ const UserForm = () => {
                     </div>
                 </div>
             </div>
-
+            {modalFailed && <ModalFailed setModal={setModalFailed} errMessage={errMessage} />}
             {modal && <Modal listUser={listUser} sync={sync} setModal={setModal} listPhoto={photo} setPhoto={setPhoto} />}
         </div>
     )

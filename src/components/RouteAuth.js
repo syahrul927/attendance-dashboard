@@ -5,6 +5,7 @@ import Home from './page/home/Home'
 import User from './page/user/User'
 import Absensi from './page/absensi/Absensi'
 import UserForm from './page/user/UserForm'
+import Testing from './page/testing/Testing'
 
 const RouteAuth = () => {
 
@@ -45,6 +46,7 @@ const RouteAuth = () => {
                         <Route path="/user" exact component={User} />
                         <Route path="/user/add" exact component={UserForm} />
                         <Route path="/absensi" exact component={Absensi} />
+                        <Route path="/testing" exact component={Testing} />
                     </div>
                 </div>
             </div>

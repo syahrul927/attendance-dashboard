@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import httpHelper from '../../../api'
 import API from '../../../api/pathApi.json'
 import { Link } from "react-router-dom"
+import Loading from '../part/loading'
 const User = () => {
     const [listUser, setListUser] = useState([])
+    const [loading, setLoading] = useState(false)
     const renderRecord = (item) => {
         return (
             <tr key={item.id}>
@@ -15,11 +17,13 @@ const User = () => {
         )
     }
     const fetchUser = async () => {
+        setLoading(true)
         await httpHelper(API.userApi.getData, null).then(res => {
             if (res.status === 200) {
                 setListUser(res.data.obj)
             }
         })
+        setLoading(false)
 
     }
     useEffect(() => {
@@ -27,6 +31,7 @@ const User = () => {
     }, [])
     return (
         <div>
+            {loading && <Loading/>}
             <h1 className="ui header">User</h1>
             <div className="ui section divider"></div>
             <div className="ui grid">

@@ -59,6 +59,18 @@ const MenuSideBar = () => {
                 </Link>
             </div>
             <div className="item" style={containerContent}>
+                <Link to="/testing" className="ui grid">
+                    <div className="column">
+                        <i className="software icon" style={iconSidebar}></i>
+                    </div>
+                    <div className="column">
+                        <div className="content" style={contentList}>
+                            Testing
+                        </div>
+                    </div>
+                </Link>
+            </div>
+            <div className="item" style={containerContent}>
                 <Link to="/login" className="ui grid" onClick={() => clickLogout()}>
                     <div className="column">
                         <i className="sign-out icon" style={iconSidebar}></i>

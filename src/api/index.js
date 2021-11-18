@@ -1,6 +1,7 @@
 import axios from 'axios'
 // const baseURL = 'https://attendance-serviceku.herokuapp.com'
-const baseURL = 'http://localhost:3000'
+// const baseURL = 'http://localhost:3000'
+const baseURL = 'http://159.223.56.146:3000'
 
 // const token = 
 
@@ -15,5 +16,4 @@ const doRequest = async ({method, url, auth, contentType}, body = {}) => {
         data: body
     })
 }
-
 export default doRequest

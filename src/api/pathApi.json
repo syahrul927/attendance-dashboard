@@ -31,11 +31,21 @@
             "url":"/user",
             "auth":true,
             "method":"DELETE"
+        },
+        "validateUser":{
+            "url":"/user/validate",
+            "auth":true,
+            "method":"POST"
         }
     },
     "absensiApi":{
         "getData":{
             "url":"/absensi",
+            "auth":true,
+            "method":"GET"
+        },
+        "getImage":{
+            "url":"",
             "auth":true,
             "method":"GET"
         }
