@@ -4,13 +4,14 @@ import history from "./history"
 import Login from './page/auth/Login'
 import RouteAuth from './RouteAuth'
 
-const getTokenLocal = async () => {
-    return await localStorage.getItem('token')
+const getTokenLocal = () => {
+    return  localStorage.getItem('token')
 }
 
 const App = () => {
     useEffect(() => {
         const token = getTokenLocal() 
+        console.log(`token ${token}`)
         if(!token){
             history.push('/login')
         } else{

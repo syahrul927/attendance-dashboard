@@ -21,9 +21,9 @@ const Login = () => {
                 if (200 !== res.status) {
                     setStatusAuth(false)
                 }
-                if (res.data.accessToken) {
+                if (res.data.obj.accessToken) {
                     setStatusAuth(true)
-                    successLogin(res.data.accessToken)
+                    successLogin(res.data.obj.accessToken)
                 }
             }).catch(err => {
                 console.log(err)

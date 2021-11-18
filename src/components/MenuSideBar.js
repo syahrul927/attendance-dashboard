@@ -17,6 +17,7 @@ const MenuSideBar = () => {
         marginTop: '10px',
     }
     const clickLogout = async () => {
+        console.log('clear token')
         await localStorage.clear()
     }
     return (
@@ -58,7 +59,7 @@ const MenuSideBar = () => {
                 </Link>
             </div>
             <div className="item" style={containerContent}>
-                <Link to="/login" className="ui grid" onClick={clickLogout}>
+                <Link to="/login" className="ui grid" onClick={() => clickLogout()}>
                     <div className="column">
                         <i className="sign-out icon" style={iconSidebar}></i>
                     </div>

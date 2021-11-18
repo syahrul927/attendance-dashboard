@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Link} from 'react-router-dom'
-import listAbsen from '../../../api/absensi.json'
+import httpHelper from '../../../api'
+import API from '../../../api/pathApi.json'
 const Absensi = () => {
-    const renderRecord = (item) => {
+    const [listAbsensi, setListAbsensi] = useState([])
+    const renderRecord = (item, idx) => {
         return (
-            <tr key={item.id}>
-                <td>{item.id}</td>
+            <tr key={item.userId}>
+                <td>{idx}</td>
+                <td>{item.userId}</td>
                 <td>{item.nama}</td>
-                <td>{item.dateTm}</td>
-                <td><Link to="/"><i className="edit icon"></i></Link> <Link to="/"><i className="trash icon"></i></Link></td>
+                <td>{item.suhu}</td>
+                <td>{item.createdDate}</td>
+                <td><Link to="/"><i className="image icon"></i></Link> </td>
             </tr>
         )
     }
+    const fetchAbsensi = async () => {
+        await httpHelper(API.absensiApi.getData, null).then(res => {
+            if(res.status === 200){
+                setListAbsensi(res.data.obj)
+            }
+        })
+    }
+    useEffect(() => {
+        fetchAbsensi()
+    }, [])
     return (
         <div>
             <h1 className="ui header">Absensi</h1>
@@ -27,19 +41,25 @@ const Absensi = () => {
                         <thead>
                             <tr>
                                 <th>
+                                    No
+                                </th>
+                                <th>
                                     Id
                                 </th>
                                 <th>
                                     Nama
                                 </th>
                                 <th>
-                                    No Telp
+                                    Suhu
+                                </th>
+                                <th>
+                                    Waktu Absen
                                 </th>
                                 <th>Tools</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {listAbsen.map(e => renderRecord(e))}
+                            {listAbsensi.map((e, idx) => renderRecord(e, idx+1))}
                         </tbody>
                     </table>
                 </div>

@@ -15,9 +15,9 @@ const User = () => {
         )
     }
     const fetchUser = async () => {
-        await httpHelper(API.userApi.getData, null, true).then(res => {
+        await httpHelper(API.userApi.getData, null).then(res => {
             if (res.status === 200) {
-                setListUser(res.data.data)
+                setListUser(res.data.obj)
             }
         })
 

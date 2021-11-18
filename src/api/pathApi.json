@@ -35,7 +35,7 @@
     },
     "absensiApi":{
         "getData":{
-            "url":"/v1/absensi",
+            "url":"/absensi",
             "auth":true,
             "method":"GET"
         }
