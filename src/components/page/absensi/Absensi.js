@@ -6,7 +6,7 @@ import Loading from '../part/loading'
 import ModalImage from './ModalImage'
 const Absensi = () => {
     
-    const baseURL = 'http://attendance-serviceku/s3/image/'
+    const baseURL = 'http://attendance-serviceku.herokuapp.com/s3/image/'
     const [listAbsensi, setListAbsensi] = useState([])
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false)
