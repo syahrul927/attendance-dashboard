@@ -8,7 +8,7 @@ const ModalTesting = ({ setModal }) => {
     const [image, setImage] = useState(null)
     const [tracks, setTracks] = useState(null)
     const [hasPhoto, setHasPhoto] = useState(false)
-    const [userName, setUserName] = useState('')
+    const [userName, setUserName] = useState(null)
     const getVideo = () => {
 
         navigator.mediaDevices.getUserMedia({
@@ -94,6 +94,7 @@ const ModalTesting = ({ setModal }) => {
     }
     const resetPhoto = () => {
         setHasPhoto(false)
+        setUserName(null)
         getVideo()
     }
     const renderUsername = () => {
@@ -104,11 +105,13 @@ const ModalTesting = ({ setModal }) => {
                 </div>
             )
         } else {
-            return (
-                <div>
-                    <p>Maaf anda tidak dikenali</p>
-                </div>
-            )
+            if(userName === ''){
+                return (
+                    <div>
+                        <p>Maaf anda tidak dikenali</p>
+                    </div>
+                )
+            }
         }
     }
     return (
