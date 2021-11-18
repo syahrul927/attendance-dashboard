@@ -61,7 +61,7 @@ const MenuSideBar = () => {
             <div className="item" style={containerContent}>
                 <Link to="/testing" className="ui grid">
                     <div className="column">
-                        <i className="software icon" style={iconSidebar}></i>
+                        <i className="check circle icon" style={iconSidebar}></i>
                     </div>
                     <div className="column">
                         <div className="content" style={contentList}>
