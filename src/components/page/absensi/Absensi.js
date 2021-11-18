@@ -6,7 +6,7 @@ import Loading from '../part/loading'
 import ModalImage from './ModalImage'
 const Absensi = () => {
     
-    const baseURL = 'http://159.223.56.146:3000'
+    const baseURL = '159.223.56.146:3000'
     const [listAbsensi, setListAbsensi] = useState([])
     const [loading, setLoading] = useState(false)
     const [modal, setModal] = useState(false)
