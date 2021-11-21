@@ -40,6 +40,7 @@ const ModalTesting = ({ setModal }) => {
         photo.height = height
         let context = photo.getContext('2d')
 
+        context.filter = "brightness(150%)"
         context.drawImage(video, 0, 0, width, height)
 
         const imageData = photoRef.current.toDataURL('image/png')
@@ -55,7 +56,9 @@ const ModalTesting = ({ setModal }) => {
         setModal(false)
     }
     const stopStream = () => {
-        tracks.forEach(e => e.stop())
+        if(tracks){
+            tracks.forEach(e => e.stop())
+        }
     }
     const renderButtonCheese = () => {
         const txt = !hasPhoto ? 'Cheese !' : 'Reset ?'

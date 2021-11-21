@@ -13,7 +13,7 @@ const ModalImage = ({setModal, url}) => {
                     </div>
                     <div className="content">
                         <div className="description">
-                            <img style={{maxHeight:300, maxWidth:300}} src={url}/>
+                            <img style={{maxHeight:300, maxWidth:300}} src={url} alt=""/>
                         </div>
                     </div>
                     <div className="actions">

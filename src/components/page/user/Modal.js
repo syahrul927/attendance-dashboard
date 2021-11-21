@@ -35,7 +35,7 @@ const Modal = ({ setModal, listPhoto, setPhoto }) => {
         photo.width = width
         photo.height = height
         let context = photo.getContext('2d')
-
+        context.filter = "brightness(150%)"
         context.drawImage(video, 0, 0, width, height)
         
         stopStream()
@@ -49,7 +49,9 @@ const Modal = ({ setModal, listPhoto, setPhoto }) => {
         setModal(false)
     }
     const stopStream = () => {
-        tracks.forEach(e => e.stop())
+        if(tracks){    
+            tracks.forEach(e => e.stop())
+        }
     }
     const renderButtonCheese = () => {
         const txt = !hasPhoto ? 'Cheese !' : 'Reset ?'

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import {Link} from 'react-router-dom'
 import httpHelper from '../../../api'
 import API from '../../../api/pathApi.json'
 import Loading from '../part/loading'

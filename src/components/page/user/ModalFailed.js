@@ -1,5 +1,4 @@
 import React from 'react'
-import history from '../../history'
 
 const ModalFailed = ({setModal, errMessage}) => {
     const confirmButton = () => {
