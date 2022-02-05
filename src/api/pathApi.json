@@ -28,9 +28,9 @@
             "method":"PUT"
         },
         "delete":{
-            "url":"/user",
+            "url":"/user/delete",
             "auth":true,
-            "method":"DELETE"
+            "method":"POST"
         },
         "validateUser":{
             "url":"/user/validate",

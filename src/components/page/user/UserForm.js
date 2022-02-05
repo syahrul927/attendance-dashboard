@@ -112,7 +112,7 @@ const UserForm = () => {
                     </div>
                 </div>
             </div>
-            {modalFailed && <ModalFailed setModal={setModalFailed} errMessage={errMessage} />}
+            {modalFailed && <ModalFailed setModal={setModalFailed} message={errMessage} title='Peringatan !' />}
             {modal && <Modal listUser={listUser} sync={sync} setModal={setModal} listPhoto={photo} setPhoto={setPhoto} />}
         </div>
     )

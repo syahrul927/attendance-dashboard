@@ -3,16 +3,18 @@ import httpHelper from '../../../api'
 import API from '../../../api/pathApi.json'
 import { Link } from "react-router-dom"
 import Loading from '../part/loading'
+import ModalDelete from './ModalDelete'
 const User = () => {
     const [listUser, setListUser] = useState([])
     const [loading, setLoading] = useState(false)
+    const [deleteModal, setDeleteModal] = useState({id:'', isOpen:false})
     const renderRecord = (item) => {
         return (
             <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.nama}</td>
                 <td>{item.telp}</td>
-                <td><Link to="/"><i className="edit icon"></i></Link> <Link to="/"><i className="trash icon"></i></Link></td>
+                <td><i className="trash icon" onClick={() => deleteUser(item.id)}></i></td>
             </tr>
         )
     }
@@ -25,6 +27,11 @@ const User = () => {
         })
         setLoading(false)
 
+    }
+    const deleteUser = (id) => {
+        if(id){
+            setDeleteModal({id, isOpen:true})
+        }
     }
     useEffect(() => {
         fetchUser()
@@ -65,6 +72,7 @@ const User = () => {
                     </table>
                 </div>
             </div>
+            {deleteModal.isOpen && <ModalDelete modal={deleteModal} setModal={setDeleteModal} listUser={listUser} />}
         </div>
     )
 }

@@ -40,7 +40,7 @@ const ModalTesting = ({ setModal }) => {
         photo.height = height
         let context = photo.getContext('2d')
 
-        context.filter = "brightness(150%)"
+        context.filter = "brightness(125%)"
         context.drawImage(video, 0, 0, width, height)
 
         const imageData = photoRef.current.toDataURL('image/png')

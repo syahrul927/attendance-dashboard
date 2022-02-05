@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ModalFailed = ({setModal, errMessage}) => {
+const ModalFailed = ({setModal, message, title}) => {
     const confirmButton = () => {
         setModal(false)
     }
@@ -9,11 +9,11 @@ const ModalFailed = ({setModal, errMessage}) => {
             <div className="ui dimmer modals page transition active">
                 <div className="ui standard test modal transition visible active">
                     <div className="header">
-                        <h3>Authentication!</h3>
+                        <h3>{title}</h3>
                     </div>
                     <div className="content">
                         <div className="description">
-                            <p>{errMessage}</p>
+                            <p>{message}</p>
                         </div>
                     </div>
                     <div className="actions">
