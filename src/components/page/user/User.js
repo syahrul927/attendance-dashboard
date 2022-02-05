@@ -9,7 +9,7 @@ const User = () => {
 
     const [listUser, setListUser] = useState([])
     const [loading, setLoading] = useState(false)
-    const [deleteModal, setDeleteModal] = useState({id:'', isOpen:false})
+    const [deleteModal, setDeleteModal] = useState({ id: '', isOpen: false })
     const [modal, setModal] = useState(false);
     const [urlImage, setUrlImage] = useState([]);
     const [nameView, setNameView] = useState("");
@@ -20,7 +20,10 @@ const User = () => {
                 <td>{item.id}</td>
                 <td>{item.nama}</td>
                 <td>{item.telp}</td>
-                <td><i className="image icon" onClick={() => showUserView(item.images, item.nama)}></i><i className="trash icon" onClick={() => deleteUser(item.id)}></i></td>
+                <td>
+                    <i className="image icon" onClick={() => showUserView(item.images, item.nama)}></i>
+                    {/* <i className="trash icon" onClick={() => deleteUser(item.id)}></i> */}
+                </td>
             </tr>
         )
     }
@@ -40,8 +43,8 @@ const User = () => {
 
     }
     const deleteUser = (id) => {
-        if(id){
-            setDeleteModal({id, isOpen:true})
+        if (id) {
+            setDeleteModal({ id, isOpen: true })
         }
     }
     useEffect(() => {
@@ -49,7 +52,7 @@ const User = () => {
     }, [])
     return (
         <div>
-            {loading && <Loading/>}
+            {loading && <Loading />}
             <h1 className="ui header">User</h1>
             <div className="ui section divider"></div>
             <div className="ui grid">
