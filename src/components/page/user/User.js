@@ -4,19 +4,30 @@ import API from '../../../api/pathApi.json'
 import { Link } from "react-router-dom"
 import Loading from '../part/loading'
 import ModalDelete from './ModalDelete'
+import UserView from './UserView'
 const User = () => {
+
     const [listUser, setListUser] = useState([])
     const [loading, setLoading] = useState(false)
     const [deleteModal, setDeleteModal] = useState({id:'', isOpen:false})
+    const [modal, setModal] = useState(false);
+    const [urlImage, setUrlImage] = useState([]);
+    const [nameView, setNameView] = useState("");
     const renderRecord = (item) => {
+        // console.log(JSON.stringify(item))
         return (
             <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.nama}</td>
                 <td>{item.telp}</td>
-                <td><i className="trash icon" onClick={() => deleteUser(item.id)}></i></td>
+                <td><i className="image icon" onClick={() => showUserView(item.images, item.nama)}></i><i className="trash icon" onClick={() => deleteUser(item.id)}></i></td>
             </tr>
         )
+    }
+    const showUserView = (url = [], nama = '') => {
+        setModal(true)
+        setUrlImage(url)
+        setNameView(nama)
     }
     const fetchUser = async () => {
         setLoading(true)
@@ -73,6 +84,7 @@ const User = () => {
                 </div>
             </div>
             {deleteModal.isOpen && <ModalDelete modal={deleteModal} setModal={setDeleteModal} listUser={listUser} />}
+            {modal && <UserView setModal={setModal} url={urlImage} nama={nameView} />}
         </div>
     )
 }
