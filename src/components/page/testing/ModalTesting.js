@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import doRequest from '../../../api'
 import API from '../../../api/pathApi.json'
+import Loading from '../part/loading'
 import { base64ToImageFile } from '../user/imageUtils'
 const ModalTesting = ({ setModal }) => {
     const videoRef = useRef(null)
@@ -9,6 +10,7 @@ const ModalTesting = ({ setModal }) => {
     const [tracks, setTracks] = useState(null)
     const [hasPhoto, setHasPhoto] = useState(false)
     const [userName, setUserName] = useState(null)
+    const [loading, setLoading] = useState(false);
     const getVideo = () => {
 
         navigator.mediaDevices.getUserMedia({
@@ -56,7 +58,7 @@ const ModalTesting = ({ setModal }) => {
         setModal(false)
     }
     const stopStream = () => {
-        if(tracks){
+        if (tracks) {
             tracks.forEach(e => e.stop())
         }
     }
@@ -74,16 +76,17 @@ const ModalTesting = ({ setModal }) => {
     }
     const scanPhoto = async () => {
         if (hasPhoto) {
+            setLoading(true)
             let formData = new FormData()
             const file = await base64ToImageFile(image, `dummy.png`)
             formData.append('image', file)
             await doRequest(API.userApi.validateUser, formData).then(resp => {
                 if (resp.status === 200) {
                     renderResult(resp.data.obj)
-                } 
+                }
             }).catch(err => {
                 renderResult('')
-            })
+            }).finally(() => setLoading(false))
         }
     }
     const renderResult = (obj) => {
@@ -108,7 +111,7 @@ const ModalTesting = ({ setModal }) => {
                 </div>
             )
         } else {
-            if(userName === ''){
+            if (userName === '') {
                 return (
                     <div>
                         <p>Maaf anda tidak dikenali</p>
@@ -124,6 +127,7 @@ const ModalTesting = ({ setModal }) => {
                     <div className="header">
                         <h2>Ambil Gambar</h2>
                     </div>
+                    {loading && <Loading />}
                     <div className="image content">
                         <div className="ui medium image">
                             {!hasPhoto && <video ref={videoRef}></video>}
