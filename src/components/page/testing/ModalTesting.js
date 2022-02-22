@@ -10,6 +10,7 @@ const ModalTesting = ({ setModal }) => {
     const [tracks, setTracks] = useState(null)
     const [hasPhoto, setHasPhoto] = useState(false)
     const [userName, setUserName] = useState(null)
+    const [percentage, setPercentage] = useState(null)
     const [loading, setLoading] = useState(false);
     const getVideo = () => {
 
@@ -91,10 +92,11 @@ const ModalTesting = ({ setModal }) => {
     }
     const renderResult = (obj) => {
         if (obj) {
-            console.log('heeree')
+            const perc = (1-parseFloat(obj.distance).toPrecision(3))*100
+            setPercentage(perc)
             setUserName(obj.nama)
         } else {
-            console.log('siniss')
+            setPercentage('')
             setUserName('')
         }
     }
@@ -107,7 +109,8 @@ const ModalTesting = ({ setModal }) => {
         if (userName) {
             return (
                 <div>
-                    <p>Nama Anda <h1><b>{userName}</b></h1> kan ?</p>
+                    <p>Nama Anda <h1><b>{userName}</b></h1></p>
+                    <p>Kemiripian <b>{percentage}%</b></p>
                 </div>
             )
         } else {

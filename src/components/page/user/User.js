@@ -22,7 +22,7 @@ const User = () => {
                 <td>{item.telp}</td>
                 <td>
                     <i className="image icon" onClick={() => showUserView(item.images, item.nama)}></i>
-                    {/* <i className="trash icon" onClick={() => deleteUser(item.id)}></i> */}
+                    <i className="trash icon" onClick={() => deleteUser(item.id)}></i>
                 </td>
             </tr>
         )
