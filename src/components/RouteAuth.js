@@ -34,7 +34,7 @@ const RouteAuth = () => {
             <div className="ui grid" style={{ minHeight: '100vh', marginBottom: '0px', marginTop: '0px' }}>
                 <div className="ui three wide column" style={{ backgroundColor: '#053742', ...containerSidebar }}>
                     <div className="ui column" style={titleContainer}>
-                        <span style={titleSidebar}>Absensi</span>
+                        <span style={titleSidebar}>Presensi</span>
                     </div>
                     <div className="ui column" style={containerMenu}>
                         <MenuSideBar />

@@ -53,7 +53,7 @@ const MenuSideBar = () => {
                     </div>
                     <div className="column">
                         <div className="content" style={contentList}>
-                            Absensi
+                            Presensi
                         </div>
                     </div>
                 </Link>

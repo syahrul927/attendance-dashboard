@@ -4,6 +4,7 @@ import API from '../../../api/pathApi.json'
 import { Link } from "react-router-dom"
 import Loading from '../part/loading'
 import ModalDelete from './ModalDelete'
+import Table from '../part/table'
 import UserView from './UserView'
 const User = () => {
 
@@ -27,10 +28,65 @@ const User = () => {
             </tr>
         )
     }
+    const renderTools = (item) => {
+        return (<div>
+            <i className="image icon" onClick={() => showUserView(item.images, item.nama)}></i>
+            <i className="trash icon" onClick={() => deleteUser(item.id)}></i>
+        </div>)
+    }
     const showUserView = (url = [], nama = '') => {
         setModal(true)
         setUrlImage(url)
         setNameView(nama)
+    }
+    const generateRecord = () => {
+        listUser.forEach(item => {
+            item.tools = { id: item.id, images: item.images, nama: item.nama }
+        })
+        const res = {
+            columns: [
+                {
+                    name: "id",
+                    label: "Id",
+                    options: {
+                        filter: true,
+                        sort: true,
+                    }
+                },
+                {
+                    name: "nama",
+                    label: "Nama",
+                    options: {
+                        filter: true,
+                        sort: false,
+                    }
+                },
+                {
+                    name: "telp",
+                    label: "Telp",
+                    options: {
+                        filter: true,
+                        sort: false,
+                    }
+                },
+                {
+                    name: "tools",
+                    label: "Tools",
+                    options: {
+                        filter: true,
+                        sort: false,
+                        customBodyRender: (value, tableMeta, updateValue) => (
+                            <div>
+                                <i className="image icon" onClick={() => showUserView(value.images, value.nama)}></i>
+                                <i className="trash icon" onClick={() => deleteUser(value.id)}></i>
+                            </div>
+                        )
+                    }
+                },
+            ],
+            rows: [...listUser]
+        }
+        return res
     }
     const fetchUser = async () => {
         setLoading(true)
@@ -56,16 +112,13 @@ const User = () => {
             <h1 className="ui header">User</h1>
             <div className="ui section divider"></div>
             <div className="ui grid">
-                <div className="six wide column">
-                    <h2>Daftar User</h2>
-                </div>
                 <div className="right floated three wide column">
                     <Link to="/user/add" className="ui primary button right floated">Tambah Baru</Link>
                 </div>
             </div>
             <div className="ui grid">
                 <div className="wide column">
-                    <table className="ui celled table" style={{ padding: '0px' }}>
+                    {/* <table className="ui celled table" style={{ padding: '0px' }}>
                         <thead>
                             <tr>
                                 <th>
@@ -83,7 +136,8 @@ const User = () => {
                         <tbody>
                             {listUser.length ? listUser.map(e => renderRecord(e)) : <tr><td colSpan="4" className="center">Data tidak ditemukan</td></tr>}
                         </tbody>
-                    </table>
+                    </table> */}
+                    <Table data={generateRecord()} title="Daftar User" />
                 </div>
             </div>
             {deleteModal.isOpen && <ModalDelete modal={deleteModal} setModal={setDeleteModal} listUser={listUser} />}
